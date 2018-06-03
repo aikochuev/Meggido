@@ -108,3 +108,16 @@ std::istream &operator >> (std::istream &in, Inequality  &c)
     in >> c.a >> c.b >> c.c >> c.z;
     return in;
 }
+
+bool Point::isEqual(const Point& y)
+{
+    if(this->NumIneq1 != y.NumIneq1)
+        return false;
+    if(this->NumIneq2 != y.NumIneq2)
+        return false;
+    if(std::fabs(this->x - y.x) > std::numeric_limits<double>::epsilon())
+        return false;
+    if(std::fabs(this->y - y.y) > std::numeric_limits<double>::epsilon())
+        return false;
+    return true;
+}

@@ -1,15 +1,27 @@
 #pragma once
 #include "iostream"
+#include <cmath>
+#include <limits>
 
 struct Point
 {
-    double x = 0, y = 0, tl1 = 0, tr1 = 0, tl2 = 0, tr2 = 0, NumIneq1 = 0, NumIneq2 = 0;
+    double x = 0.;
+    double y = 0.;
+    double tl1 = 0.;
+    double tr1 = 0.;
+    double tl2 = 0.;
+    double tr2 = 0.;
+    int NumIneq1 = 0;
+    int NumIneq2 = 0;
+    bool isEqual(const Point& y);
 };
 
 
 struct Qfunc
 {
-    double a = 0, b = 0, c = 0;
+    double a = 0.; 
+    double b = 0.;
+    double c = 0.;
     friend std::ostream& operator << (std::ostream &, Qfunc &);
 };
 
