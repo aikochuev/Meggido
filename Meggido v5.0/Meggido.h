@@ -27,7 +27,6 @@ namespace meggido
         void DeleteIneqPlus();
         void DeleteIneqMinus();
         void InterPointDel();
-        void DeleteIneq();
         const Point& algo();
         void printInequality(Qfunc& Q);
         void printInequality(Qfunc& Q, std::vector<int>& Index);
