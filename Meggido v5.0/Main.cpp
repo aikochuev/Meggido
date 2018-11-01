@@ -39,7 +39,6 @@ int main(int argc, char* argv[])
             aInequality[9].a = 0.33; aInequality[9].b = -1; aInequality[9].c = -2; aInequality[9].z = false;
             Q.a = 4; Q.b = 5; Q.c = 0;
             meggido::randIneq(Q, aInequality);
-            //std::cout << "¬ведите путь им€ файла" << std::endl;
             fullpart.append("C:\\Users\\kochu\\Documents\\Meggido\\Tests\\test");
             fullpart.append(std::to_string(n));
             std::cout << "—брос данных дл€ теста" << std::endl;

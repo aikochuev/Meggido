@@ -99,7 +99,7 @@ std::ostream &operator<<(std::ostream &out, Point  &c)
 
 std::ostream &operator<<(std::ostream &out, Lim  &c)
 {
-    out << "(u1 = " << c.u1 << "; u2 = " << c.u2 << ")" << std::endl;
+    out << "(m_uR = " << c.m_uR << "; m_uL = " << c.m_uL << ")" << std::endl;
     return out;
 }
 

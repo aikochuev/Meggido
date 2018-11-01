@@ -29,8 +29,7 @@ void Test::doExam()
     if(fin.is_open())
     {
         fin.close();
-        const Point exam(readExamData());
-        if(m_result != exam)
+        if(m_result != readExamData())
             saveResultData();
     }
     else

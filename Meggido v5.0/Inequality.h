@@ -29,8 +29,8 @@ struct Qfunc
 
 struct Lim
 {
-    double u1 = -DBL_MAX;
-    double u2 = DBL_MAX;
+    double m_uR = -DBL_MAX;
+    double m_uL = DBL_MAX;
 };
 
 class Inequality
