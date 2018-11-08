@@ -1,0 +1,153 @@
+% Стилевой файл для оформления курсовых и дипломных работ
+\ProvidesPackage{ptvstyle}
+                [2010/04/02 v0.1]
+\usepackage{indentfirst}
+\usepackage[left=2.5cm,right=1.5cm,
+    top=2cm,bottom=2cm]{geometry}
+\usepackage[intlimits,sumlimits]{amsmath}
+\usepackage{amssymb,amsthm}
+%\usepackage{misccorr}
+
+
+\renewcommand{\Pr}{{\mathbf P}}
+\DeclareMathOperator{\const}{const}
+\DeclareMathOperator{\M}{\mathbf{M}}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}%
+	{\hbox{$\mathsurround=0pt #1$}}{}}% перенос арифметических знаков
+
+\newtheoremstyle{ptvstyle}% NAME
+	{\topsep}%ABOVESPACE
+	{\topsep}%BELOWSPACE
+	{\rmfamily}%BODYFONT
+	{\parindent}%INDENT
+	{\bfseries}%HEADFONT
+	{.}%HEADPUNCT	
+	{\fontdimen2\font plus \fontdimen3\font minus \fontdimen4\font}%HEADSPACE
+	{}%CUSTOM-HEAD-SPACE
+
+\theoremstyle{ptvstyle}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{corollary}{Следствие}
+\newtheorem{definition}{Определение}
+\newtheorem*{conjecture}{Гипотеза}
+
+\newcommand{\ptvtype}{\errmessage{Не указан тип работы!}}
+
+\DeclareOption{Kursovaja}{
+  \renewcommand{\ptvtype}{Курсовая работа}
+}
+\DeclareOption{Praktika}{
+  \renewcommand{\ptvtype}{Отчет по преддипломной практике}
+}
+\DeclareOption{Bakalavr}{
+  \renewcommand{\ptvtype}{\textbf{ВЫПУСКНАЯ КВАЛИФИКАЦИОННАЯ РАБОТА БАКАЛАВРА}}
+}
+\DeclareOption{Magistr}{
+  \renewcommand{\ptvtype}{Выпускная квалификационная работа магистра}
+}
+
+\ProcessOptions
+
+\renewcommand{\title}[1]{\newcommand{\ptvtitle}{#1}}
+\renewcommand{\author}[1]{\newcommand{\ptvauthor}{#1}}
+\newcommand{\advisor}[1]{\newcommand{\ptvadvisor}{#1}}
+\newcommand{\chief}[1]{\newcommand{\ptvchief}{#1}}
+\renewcommand{\date}[1]{\newcommand{\ptvdate}{#1}}
+
+\renewcommand{\maketitle}{
+  \clearpage
+  \thispagestyle{empty}
+  \noindent \large
+  \begin{center}
+    МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСКОЙ ФЕДЕРАЦИИ \\
+    Федеральное государственное автономное образовательное учреждение высшего образования\\
+    \textbf{<<Национальный исследовательский Нижегородский государственный университет им. Н.И. Лобачевского>> \\(ННГУ)}\\     
+    \vspace{1cm}
+    \textbf{Институт информационных технологий, математики и механики}\\
+  	\vspace{1cm}
+    \textbf{Кафедра алгебры, геометрии и дискретной математики}\\
+	\vspace{1cm}
+    Направление подготовки: <<Фундаментальная информатика и информационные технологии>>\\
+	Профиль подготовки: <<Инженерия программного обеспечения>>\\ 
+    \vfill
+    
+    {\Large
+      \ptvtype 
+      \\
+Тема: \\
+      <<{}\ptvtitle{}>>
+    }
+    
+  \end{center}
+
+  \vfill
+  \hspace{.5\linewidth}%
+  \begin{minipage}[h]{3.0\linewidth}
+  	Выполнил:\\
+    \ptvauthor
+    
+    Научный руководитель:\\
+    \ptvadvisor
+    
+    \medskip
+   
+
+  \end{minipage}
+
+  \vspace{2cm}
+  
+  \begin{center}
+    Нижний Новгород \\
+    \ptvdate
+  \end{center}
+
+  \newpage
+  }
+
+\makeatletter
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname. }
+\renewcommand{\section}{\@startsection
+	{section}{1}{\parindent}{\baselineskip}{0.5\baselineskip}
+	{\normalfont\Large\bfseries}}
+\renewcommand{\subsection}{\@startsection
+	{subsection}{2}{\parindent}{\baselineskip}{0.5\baselineskip}
+	{\normalfont\large\bfseries}}
+
+\renewcommand{\@biblabel}[1]{#1.\hfil}
+
+\addto\captionsrussian{%
+  \def\refname{%
+    {Литература}
+    }
+}
+
+\renewenvironment{thebibliography}[1]
+     {\section*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin 0pt % \labelwidth 
+            \itemindent \parindent
+            \advance\itemindent\labelwidth
+            % \advance\leftmargin\labelsep
+            \itemsep 0ex \parsep 0ex
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+
+\makeatother
