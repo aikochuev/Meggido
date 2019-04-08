@@ -24,13 +24,13 @@ struct Qfunc
     double a = 0.; 
     double b = 0.;
     double c = 0.;
-    friend std::ostream& operator << (std::ostream &, Qfunc &);
+    friend std::ostream& operator << (std::ostream&, Qfunc&);
 };
 
 struct Lim
 {
-    double m_uR = -DBL_MAX;
-    double m_uL = DBL_MAX;
+    double m_uR = 3/*DBL_MAX*/;
+    double m_uL = -3/*-DBL_MAX*/;
 };
 
 class Inequality

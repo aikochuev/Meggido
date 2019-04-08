@@ -12,10 +12,36 @@ void Test::runTest()
     Qfunc Q;
     std::cout << "Чтение данных для теста" << std::endl;
     readTestData(m_filename, Q, aInequality);
-    meggido::CMeggido meggidoAlgo(Q, aInequality);
+
+    meggido::CMeggidoMaxX meggidoAlgoMaxX(Q, aInequality);
+    std::cout << "meggidoAlgoMaxX" << std::endl;
     double t_start = omp_get_wtime();
-    m_result = meggidoAlgo.algo();
+    m_result = meggidoAlgoMaxX.algo();
     double t_end = omp_get_wtime();
+    std::cout << "time = " << t_end - t_start << std::endl;
+    doExam();
+
+    meggido::CMeggidoMaxY meggidoAlgoMaxY(Q, aInequality);
+    std::cout << "meggidoAlgoMaxY" << std::endl;
+    t_start = omp_get_wtime();
+    m_result = meggidoAlgoMaxY.algo();
+    t_end = omp_get_wtime();
+    std::cout << "time = " << t_end - t_start << std::endl;
+    doExam();
+
+    meggido::CMeggidoMinX meggidoAlgoMinX(Q, aInequality);
+    std::cout << "meggidoAlgoMinX" << std::endl;
+    t_start = omp_get_wtime();
+    m_result = meggidoAlgoMinX.algo();
+    t_end = omp_get_wtime();
+    std::cout << "time = " << t_end - t_start << std::endl;
+    doExam();
+
+    meggido::CMeggidoMinY meggidoAlgoMinY(Q, aInequality);
+    std::cout << "meggidoAlgoMinY" << std::endl;
+    t_start = omp_get_wtime();
+    m_result = meggidoAlgoMinY.algo();
+    t_end = omp_get_wtime();
     std::cout << "time = " << t_end - t_start << std::endl;
     doExam();
 }
