@@ -2,10 +2,114 @@
 #include <ctime>
 #include "Test.h"
 #include "Meggido.h"
+#include "Fraction.h"
+#include "SuitableFractionsFinder.h"
+#include "WidthFinder.h"
 
 int main(int argc, char* argv[])
 {
-    std::srand(time(NULL));
+    /*Fraction a(1, 2);
+    Fraction b(3, 4);
+    std::cout << a << b;
+    Fraction sum(a + b);
+    Fraction sub(a - b);
+    Fraction mult(a * b);
+    Fraction div(a / b);
+    std::cout << sum;
+    std::cout << sub;
+    std::cout << mult;
+    std::cout << div;*/
+
+    HNFmatrix matrix(Fraction(8, 7), Fraction(5, 7), Fraction(1, 1));
+    std::cout << "HNF Matrix:" << std::endl;
+    std::cout << matrix << std::endl;
+    std::cout << std::endl;
+
+    SuitableFractionsFinder suitableFractionsFinder(matrix.m_b / matrix.m_a);
+    suitableFractionsFinder.find();
+    std::vector<Fraction> suitFractions;
+    suitableFractionsFinder.getSuitFractions(suitFractions);
+    std::cout << "Suitable Fractions:" << std::endl;
+    for(const auto& frac : suitFractions)
+        std::cout << frac << std::endl;
+    std::cout << std::endl;
+
+    WidthFinder widthFinder(matrix, suitFractions);
+    widthFinder.find();
+    std::cout << "Width: " << widthFinder.width() << std::endl;
+    std::cout << "Width Suitable Fraction: " << widthFinder.widthSuitFrac() << std::endl;
+    /*std::vector<std::vector<Fraction>> matrV;
+    std::vector<int> firstRow;
+    firstRow.push_back(10);
+    firstRow.push_back(6);
+    std::vector<int> secondRow;
+    secondRow.push_back(7);
+    secondRow.push_back(4);
+    matrV.push_back(firstRow);
+    matrV.push_back(secondRow);*/
+
+
+    /*std::vector<std::vector<int>> matrV;
+    std::vector<int> firstRow;
+    firstRow.push_back(10);
+    firstRow.push_back(6);
+    std::vector<int> secondRow;
+    secondRow.push_back(7);
+    secondRow.push_back(4);
+    matrV.push_back(firstRow);
+    matrV.push_back(secondRow);
+
+    for(int i = 0; i < 2; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            std::cout << matrV[i][j];
+        }
+        std::cout << std::endl;
+    }
+    std::cout << gcd(5, 15) << std::endl;
+    std::cout << gcd(10, 20) << std::endl;
+    std::cout << gcd(49, 7) << std::endl;
+    
+    while(matrV[1][0] != 0)
+    {
+        if(matrV[0][0] > matrV[1][0])
+            swap(matrV[0], matrV[1]);
+
+        int gcdLocal = gcd(matrV[0][0], matrV[1][0]);
+        matrV[1][0] -= gcdLocal * matrV[0][0];
+        matrV[1][1] -= gcdLocal * matrV[0][1];
+
+        for(int i = 0; i < 2; i++)
+        {
+            for(int j = 0; j < 2; j++)
+            {
+                std::cout << matrV[i][j];
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    if(matrV[1][1] < 0)
+        matrV[1][1] *= -1;
+
+    for(int i = 0; i < 2; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            std::cout << matrV[i][j];
+        }
+        std::cout << std::endl;
+    }
+    if(matrV[0][0] > matrV[0][1] 
+        && matrV[0][1] >= 0
+        && matrV[1][1] > 0
+        && matrV[1][0] == 0)
+        std::cout <<"correct HNF"<< std::endl;
+    else
+        std::cout << "incorrect HNF" << std::endl;
+    */
+    /*std::srand(time(NULL));
     setlocale(LC_ALL, "Russian");
     std::vector<Inequality> aInequality;
     Qfunc Q;
@@ -45,7 +149,7 @@ int main(int argc, char* argv[])
             std::cout << "—брос данных дл€ теста" << std::endl;
             test::Test::saveTestData(fullpart, Q, aInequality);
         }
-    }
+    }*/
     system("pause");
     return 0;
 }
