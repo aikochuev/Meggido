@@ -9,6 +9,7 @@
 #include <iterator>
 #include <stdlib.h>
 #include <string>
+#include "Fraction.h"
 
 namespace meggido
 {
@@ -45,5 +46,6 @@ namespace meggido
         Point m_result;
     };
     void randIneq(Qfunc& Q, std::vector<Inequality>& aInequality);
+
     //void printPoint(std::vector<Point>& A);
 }

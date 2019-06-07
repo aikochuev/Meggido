@@ -8,7 +8,7 @@
 
 int main(int argc, char* argv[])
 {
-    /*Fraction a(1, 2);
+    Fraction a(1, 2);
     Fraction b(3, 4);
     std::cout << a << b;
     Fraction sum(a + b);
@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     std::cout << sum;
     std::cout << sub;
     std::cout << mult;
-    std::cout << div;*/
+    std::cout << div;
 
     HNFmatrix matrix(Fraction(8, 7), Fraction(5, 7), Fraction(1, 1));
     std::cout << "HNF Matrix:" << std::endl;
@@ -38,6 +38,37 @@ int main(int argc, char* argv[])
     widthFinder.find();
     std::cout << "Width: " << widthFinder.width() << std::endl;
     std::cout << "Width Suitable Fraction: " << widthFinder.widthSuitFrac() << std::endl;
+
+    std::vector<InequalityFrac> aInequality;
+    aInequality.push_back(InequalityFrac(Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(0, 1), Fraction(1, 1), Fraction(0, 1)));
+
+    aInequality.push_back(InequalityFrac(Fraction(-1, 1), Fraction(1, 1), Fraction(10, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-2, 1), Fraction(1, 1), Fraction(11, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-3, 1), Fraction(1, 1), Fraction(12, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-4, 1), Fraction(1, 1), Fraction(13, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-5, 1), Fraction(1, 1), Fraction(14, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-6, 1), Fraction(1, 1), Fraction(15, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-7, 1), Fraction(1, 1), Fraction(16, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-8, 1), Fraction(1, 1), Fraction(17, 1)));
+    aInequality.push_back(InequalityFrac(Fraction(-9, 1), Fraction(1, 1), Fraction(18, 1)));
+
+    
+    /*aInequality[1].a = -1; aInequality[1].b = 0; aInequality[1].c = 3;
+    aInequality[2].a = -1; aInequality[2].b = 1; aInequality[2].c = -5;
+    aInequality[3].a = -0.33; aInequality[3].b = 1; aInequality[3].c = -2;
+    aInequality[4].a = -0.33; aInequality[4].b = -1; aInequality[4].c = -2;
+    aInequality[5].a = -1; aInequality[5].b = -1; aInequality[5].c = -5;
+    aInequality[6].a = 0.33; aInequality[6].b = 1; aInequality[6].c = -2;
+    aInequality[7].a = 1; aInequality[7].b = 1; aInequality[7].c = -5;
+    aInequality[8].a = 1; aInequality[8].b = -1; aInequality[8].c = -5;
+    aInequality[9].a = 0.33; aInequality[9].b = -1; aInequality[9].c = -2;*/
+
+    for(const auto& inq : aInequality)
+        std::cout << inq;
+    
+
+
     /*std::vector<std::vector<Fraction>> matrV;
     std::vector<int> firstRow;
     firstRow.push_back(10);
@@ -109,6 +140,7 @@ int main(int argc, char* argv[])
     else
         std::cout << "incorrect HNF" << std::endl;
     */
+
     /*std::srand(time(NULL));
     setlocale(LC_ALL, "Russian");
     std::vector<Inequality> aInequality;
@@ -121,7 +153,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-        int n = 0;
+        /*int n = 0;
         do
         {
             std::cout << "n = ";
@@ -131,18 +163,18 @@ int main(int argc, char* argv[])
         if(n != 0)
         {
             aInequality.resize(n);
-            aInequality[0].a = 1; aInequality[0].b = 0; aInequality[0].c = 3; aInequality[0].z = false;
-            aInequality[1].a = -1; aInequality[1].b = 0; aInequality[1].c = 3; aInequality[1].z = false;
-            aInequality[2].a = -1; aInequality[2].b = 1; aInequality[2].c = -5; aInequality[2].z = false;
-            aInequality[3].a = -0.33; aInequality[3].b = 1; aInequality[3].c = -2; aInequality[3].z = false;
-            aInequality[4].a = -0.33; aInequality[4].b = -1; aInequality[4].c = -2; aInequality[4].z = false;
-            aInequality[5].a = -1; aInequality[5].b = -1; aInequality[5].c = -5; aInequality[5].z = false;
-            aInequality[6].a = 0.33; aInequality[6].b = 1; aInequality[6].c = -2; aInequality[6].z = false;
-            aInequality[7].a = 1; aInequality[7].b = 1; aInequality[7].c = -5; aInequality[7].z = false;
-            aInequality[8].a = 1; aInequality[8].b = -1; aInequality[8].c = -5; aInequality[8].z = false;
-            aInequality[9].a = 0.33; aInequality[9].b = -1; aInequality[9].c = -2; aInequality[9].z = false;
+            aInequality[0].a = 1; aInequality[0].b = 0; aInequality[0].c = 3;
+            aInequality[1].a = -1; aInequality[1].b = 0; aInequality[1].c = 3;
+            aInequality[2].a = -1; aInequality[2].b = 1; aInequality[2].c = -5;
+            aInequality[3].a = -0.33; aInequality[3].b = 1; aInequality[3].c = -2;
+            aInequality[4].a = -0.33; aInequality[4].b = -1; aInequality[4].c = -2;
+            aInequality[5].a = -1; aInequality[5].b = -1; aInequality[5].c = -5;
+            aInequality[6].a = 0.33; aInequality[6].b = 1; aInequality[6].c = -2;
+            aInequality[7].a = 1; aInequality[7].b = 1; aInequality[7].c = -5;
+            aInequality[8].a = 1; aInequality[8].b = -1; aInequality[8].c = -5;
+            aInequality[9].a = 0.33; aInequality[9].b = -1; aInequality[9].c = -2;
             Q.a = 4; Q.b = 5; Q.c = 0;
-            meggido::randIneq(Q, aInequality);
+            //meggido::randIneq(Q, aInequality);
             //std::cout << "¬ведите путь им€ файла" << std::endl;
             fullpart.append("C:\\Users\\kochu\\Documents\\Meggido\\Tests\\test");
             fullpart.append(std::to_string(n));

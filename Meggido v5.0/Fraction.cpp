@@ -17,26 +17,52 @@ Fraction::Fraction(const Fraction& x)
         m_numerator *= -1;
 }
 
-bool Fraction::operator==(const Fraction& x)
+bool Fraction::operator==(const Fraction& x) const
 {
     return m_numerator == x.m_numerator && m_denominator == x.m_denominator;
 }
 
-bool Fraction::operator>(const Fraction& x)
+bool Fraction::operator>(const Fraction& x) const
 {
-    Fraction tmp(m_numerator*x.m_denominator, x.m_denominator*m_denominator);
-    Fraction tmpX(x.m_numerator*m_denominator, x.m_denominator*m_denominator);
-    return tmp.m_numerator > tmpX.m_numerator;
+    return m_numerator * x.m_denominator > x.m_numerator*m_denominator;
 }
 
-bool Fraction::operator<(const Fraction& x)
+bool Fraction::operator<(const Fraction& x) const
 {
-    Fraction tmp(m_numerator*x.m_denominator, x.m_denominator*m_denominator);
-    Fraction tmpX(x.m_numerator*m_denominator, x.m_denominator*m_denominator);
-    return tmp.m_numerator < tmpX.m_numerator;
+    return m_numerator * x.m_denominator < x.m_numerator*m_denominator;
 }
 
-bool Fraction::operator!=(const Fraction& x)
+bool Fraction::operator==(const double& x) const
+{
+    return abs(m_numerator / m_denominator - x) < eps;
+}
+
+bool Fraction::operator>(const double& x) const
+{
+    return m_numerator / m_denominator > x;
+}
+
+bool Fraction::operator<(const double& x) const
+{
+    return m_numerator / m_denominator < x;
+}
+
+bool Fraction::operator==(int& x) const
+{
+    return abs(m_numerator / m_denominator - x) < eps;
+}
+
+bool Fraction::operator>(int& x) const
+{
+    return m_numerator / m_denominator > x;
+}
+
+bool Fraction::operator<(int& x) const
+{
+    return m_numerator / m_denominator < x;
+}
+
+bool Fraction::operator!=(const Fraction& x) const
 {
     return !(*this == x);
 }
@@ -58,42 +84,56 @@ Fraction& Fraction::operator=(const Fraction& x)
     return (*this);
 }
 
-Fraction Fraction::operator/(const Fraction& x)
+Fraction Fraction::operator/(const Fraction& x) const
 {
     Fraction tmp(m_numerator*x.m_denominator, x.m_numerator*m_denominator);
     tmp.reduce();
     return tmp;
 }
 
-Fraction Fraction::operator/(const int& x)
+Fraction Fraction::operator/(const int& x) const
 {
     return Fraction();
 }
 
-Fraction Fraction::operator+(const Fraction& x)
+Fraction Fraction::operator+(const Fraction& x) const
 {
     Fraction tmp(m_numerator*x.m_denominator + m_denominator * x.m_numerator, x.m_denominator*m_denominator);
     tmp.reduce();
     return tmp;
 }
 
-Fraction Fraction::operator*(const Fraction& x)
+Fraction Fraction::operator+(const int& x) const
+{
+    Fraction tmp(m_numerator + m_denominator * x, m_denominator);
+    tmp.reduce();
+    return tmp;
+}
+
+Fraction Fraction::operator*(const Fraction& x) const
 {
     Fraction tmp(m_numerator*x.m_numerator, x.m_denominator*m_denominator);
     tmp.reduce();
     return tmp;
 }
 
-Fraction Fraction::operator*(const int& x)
+Fraction Fraction::operator*(const int& x) const
 {
     Fraction tmp(m_numerator*x, m_denominator);
     tmp.reduce();
     return tmp;
 }
 
-Fraction Fraction::operator-(const Fraction& x)
+Fraction Fraction::operator-(const Fraction& x) const
 {
     Fraction tmp(m_numerator*x.m_denominator - m_denominator * x.m_numerator, x.m_denominator*m_denominator);
+    tmp.reduce();
+    return tmp;
+}
+
+Fraction Fraction::operator-(const int& x) const
+{
+    Fraction tmp(m_numerator - m_denominator *x, m_denominator);
     tmp.reduce();
     return tmp;
 }
@@ -106,6 +146,11 @@ int gcd(int a, int b)
         return gcd(b, a%b);
 }
 
+const Fraction operator-(const Fraction& f)
+{
+    return Fraction(-f.m_numerator, f.m_denominator);
+}
+
 std::ostream &operator<<(std::ostream& out, const Fraction& c)
 {
     return out << c.m_numerator << "/" << c.m_denominator;
@@ -116,3 +161,12 @@ Fraction abs(const Fraction& fraction)
     return Fraction(abs(fraction.m_numerator), abs(fraction.m_denominator));
 }
 
+bool isNull(const double& x)
+{
+    return abs(x) < eps;
+}
+
+bool isNull(const Fraction& x)
+{
+    return abs(x) < eps;
+}

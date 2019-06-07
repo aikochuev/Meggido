@@ -2,6 +2,7 @@
 #include "iostream"
 #include <cmath>
 #include <limits>
+#include "Fraction.h"
 
 struct Point
 {
@@ -33,25 +34,27 @@ struct Lim
     double u2 = DBL_MAX;
 };
 
-class Inequality
+template<typename T> class CInequality
 {
 public:
-    double a = 0, b = 0, c = 0;
-    bool z = false;
-    Inequality() {}
-    Inequality(double x, double y, double p, bool q) : a(x), b(y), c(p), z(q) {}
-    ~Inequality() {}
-    Inequality(const Inequality &X);
+    T a, b, c;
+    CInequality() {}
+    CInequality(T x, T y, T p) : a(x), b(y), c(p) {}
+    ~CInequality() {}
+    CInequality(const CInequality<T> &X);
 
-    Inequality& operator=(Inequality &X);
-    Inequality operator/(Inequality X);
-    Inequality operator+(Inequality X);
-    Inequality operator-(Inequality X);
-    friend std::ostream &operator<<(std::ostream &, const Inequality &);
-    friend std::istream &operator>>(std::istream &, Inequality &);
+    CInequality<T>& operator=(CInequality<T> &X);
+    CInequality<T> operator/(CInequality<T> X);
+    CInequality<T> operator+(CInequality<T> X);
+    CInequality<T> operator-(CInequality<T> X);
+    friend std::ostream &operator<<(std::ostream &, const CInequality<T> &);
+    friend std::istream &operator>>(std::istream &, CInequality<T> &);
 };
-std::ostream& operator<<(std::ostream &out, const Inequality  &c);
+typedef CInequality<double> Inequality;
+typedef CInequality<Fraction> InequalityFrac;
+
+template<typename T> std::ostream& operator<<(std::ostream &out, const CInequality<T>  &c);
 std::ostream &operator<<(std::ostream &out, Qfunc  &c);
 std::ostream &operator<<(std::ostream &out, Point  &c);
 std::ostream &operator<<(std::ostream &out, Lim  &c);
-std::istream &operator>>(std::istream &in, Inequality  &c);
+template<typename T> std::istream &operator>>(std::istream &in, CInequality<T>  &c);

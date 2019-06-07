@@ -2,28 +2,52 @@
 #include <math.h>
 #include "Inequality.h"
 
-Inequality::Inequality(const Inequality &X)
+template<typename T> CInequality<T>::CInequality(const CInequality<T> &X)
 {
     a = X.a;
     b = X.b;
     c = X.c;
-    z = X.z;
 }
 
-Inequality& Inequality::operator= (Inequality &X)
+CInequality<double>::CInequality(const CInequality<double>& X)
+{
+    a = X.a;
+    b = X.b;
+    c = X.c;
+}
+
+CInequality<Fraction>::CInequality(const CInequality<Fraction>& X)
+{
+    a = X.a;
+    b = X.b;
+    c = X.c;
+}
+
+template<typename T> CInequality<T>& CInequality<T>::operator=(CInequality<T>& X)
 {
     if(this != &X)
     {
         a = X.a;
         b = X.b;
         c = X.c;
-        z = X.z;
     }
     return (*this);
 }
-Inequality Inequality::operator/ (Inequality X)
+
+CInequality<Fraction>& CInequality<Fraction>::operator=(CInequality<Fraction>& X)
 {
-    Inequality Y;
+    if(this != &X)
+    {
+        a = X.a;
+        b = X.b;
+        c = X.c;
+    }
+    return (*this);
+}
+
+template<typename T> CInequality<T> CInequality<T>::operator/ (CInequality<T> X)
+{
+    CInequality<T> Y;
     if ((X.a != 0) && (X.b != 0) && (X.c != 0))
     {
         Y.a = a / X.a;
@@ -32,54 +56,68 @@ Inequality Inequality::operator/ (Inequality X)
     }
     return Y;
 }
-Inequality Inequality::operator+ (Inequality X)
+
+template<typename T> CInequality<T> CInequality<T>::operator+ (CInequality<T> X)
 {
-    Inequality Y;
+    CInequality<T> Y;
     Y.a = a + X.a;
     Y.b = b + X.b;
     Y.c = c + X.c;
-    Y.z = X.z;
     return Y;
 }
-Inequality Inequality::operator- (Inequality X)
+
+template<typename T> CInequality<T> CInequality<T>::operator- (CInequality<T> X)
 {
-    Inequality Y;
+    CInequality<T> Y;
     Y.a = a - X.a;
     Y.b = b - X.b;
     Y.c = c - X.c;
-    Y.z = X.z;
     return Y;
 }
 
 
-std::ostream& operator<<(std::ostream &out, const Inequality  &c)
+template<typename T> std::ostream& operator<<(std::ostream &out, const CInequality<T>  &c)
 {
-    if (c.z)
-    {
-        if (c.b > 0)
-            if (c.c > 0)
-                out << c.a << "x + " << c.b << "y + " << c.c << " >= 0" << std::endl;
-            else
-                out << c.a << "x + " << c.b << "y - " << abs(c.c) << " >= 0" << std::endl;
+    if(c.b > 0)
+        if(c.c > 0)
+            out << c.a << "x + " << c.b << "y + " << c.c << " <= 0" << std::endl;
         else
-            if (c.c > 0)
-                out << c.a << "x - " << abs(c.b) << "y + " << c.c << " >= 0" << std::endl;
-            else
-                out << c.a << "x - " << abs(c.b) << "y - " << abs(c.c) << " >= 0" << std::endl;
-    }
+            out << c.a << "x + " << c.b << "y - " << abs(c.c) << " <= 0" << std::endl;
     else
-    {
-        if (c.b > 0)
-            if (c.c > 0)
-                out << c.a << "x + " << c.b << "y + " << c.c << " <= 0" << std::endl;
-            else
-                out << c.a << "x + " << c.b << "y - " << abs(c.c) << " <= 0" << std::endl;
+        if(c.c > 0)
+            out << c.a << "x - " << abs(c.b) << "y + " << c.c << " <= 0" << std::endl;
         else
-            if (c.c > 0)
-                out << c.a << "x - " << abs(c.b) << "y + " << c.c << " <= 0" << std::endl;
-            else
-                out << c.a << "x - " << abs(c.b) << "y - " << abs(c.c) << " <= 0" << std::endl;
-    }
+            out << c.a << "x - " << abs(c.b) << "y - " << abs(c.c) << " <= 0" << std::endl;
+    return out;
+}
+
+std::ostream& operator<<(std::ostream &out, const CInequality<double>  &c)
+{
+    if(c.b > 0)
+        if(c.c > 0)
+            out << c.a << "x + " << c.b << "y + " << c.c << " <= 0" << std::endl;
+        else
+            out << c.a << "x + " << c.b << "y - " << abs(c.c) << " <= 0" << std::endl;
+    else
+        if(c.c > 0)
+            out << c.a << "x - " << abs(c.b) << "y + " << c.c << " <= 0" << std::endl;
+        else
+            out << c.a << "x - " << abs(c.b) << "y - " << abs(c.c) << " <= 0" << std::endl;
+    return out;
+}
+
+std::ostream& operator<<(std::ostream &out, const CInequality<Fraction> &c)
+{
+    if(c.b > 0)
+        if(c.c > 0)
+            out << c.a << "x + " << c.b << "y + " << c.c << " <= 0" << std::endl;
+        else
+            out << c.a << "x + " << c.b << "y - " << abs(c.c) << " <= 0" << std::endl;
+    else
+        if(c.c > 0)
+            out << c.a << "x - " << abs(c.b) << "y + " << c.c << " <= 0" << std::endl;
+        else
+            out << c.a << "x - " << abs(c.b) << "y - " << abs(c.c) << " <= 0" << std::endl;
     return out;
 }
 
@@ -103,7 +141,7 @@ std::ostream &operator<<(std::ostream &out, Lim  &c)
     return out;
 }
 
-std::istream &operator >> (std::istream &in, Inequality  &c)
+template<typename T> std::istream &operator >> (std::istream &in, CInequality<T>  &c)
 {
     in >> c.a >> c.b >> c.c >> c.z;
     return in;
